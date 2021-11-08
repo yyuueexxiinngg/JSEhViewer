@@ -224,7 +224,7 @@ function getListInfos(rootElement) {
         parseInt(tmp[0]) / 16 -
         parseInt(parseInt(tmp[1]) / 21) * 0.5
       ).toString();
-      const uploader = trElement.firstChild({ selector: "div.gl3e a" }).string;
+      const uploader = trElement.firstChild({ selector: "div.gl3e a" })?.string ?? "(Disowned)";
       const length = /(\d*) page/g.exec(
         trElement.firstChild({
           xPath: 'td[@class="gl2e"]/div/div[@class="gl3e"]/div[5]'
@@ -403,7 +403,8 @@ function extractMetadata(rootElement) {
   const taglist = {};
   for (let tr of rootElement
     .firstChild({ selector: "#taglist > table" })
-    .children({ tag: "tr" })) {
+    ?.children({ tag: "tr" })
+    ??[]) {
     const tagType = tr.firstChild({ xPath: "td[1]" }).string.slice(0, -1);
     const tags = tr
       .firstChild({ xPath: "td[2]" })
