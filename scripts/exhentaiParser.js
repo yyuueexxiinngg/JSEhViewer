@@ -505,10 +505,10 @@ function extractComments(rootElement) {
   );
   const comments = [];
   for (let block of comment_blocks) {
-    const posted_time = /Posted on (.*) by/.exec(
+    const posted_time = /Posted on (.*\d)/.exec(
       block.firstChild({ selector: ".c3" }).string
     )[1];
-    const commenter = block.firstChild({ selector: ".c3 > a" }).string;
+    const commenter = block.firstChild({ selector: ".c3 > a" })?.string ?? "(Disowned)";
     let is_uploader,
       score,
       comment_id,
